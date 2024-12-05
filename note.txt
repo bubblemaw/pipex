@@ -1,0 +1,22 @@
+le afonction dup va surment me permetttre d'ecrire le resulatat de la premier
+phase dans la deuxieme phase et surtout de rediriger chaque sortie ou entree
+
+surment qu'avant de open un file je vais a chaque fois faire un check avec 
+la fonction acces pour savoir si j'ai l'autorisation d'acceder au fichier 
+
+execve va me permetttre de'exectuer les cmd1 et cmd2 je vais devoir faire 
+un split pour que la commande bien rangée entre guillemets.
+#include <unistd.h>
+#include <stdio.h>
+int main()
+{
+	char *args[3];
+
+	args[0] = "ls";
+	args[1] = "-l";
+	args[2] = NULL;
+	execve("/bin/ls", args, NULL);
+	printf("This line will not be executed.\n");
+
+	return (0);
+}
