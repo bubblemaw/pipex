@@ -20,3 +20,14 @@ int main()
 
 	return (0);
 }
+main()
+{
+	ft_init_pipex()
+	ft_check_args()
+	cheker les arguments verifier si ils existent les enregistrer
+	ft_parse_cmds()
+	ft_parse_args()
+	while (cmds)
+		ft_exec()
+	ft_cleanup()
+}
