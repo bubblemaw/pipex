@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 10:08:43 by maw               #+#    #+#             */
-/*   Updated: 2024/12/15 11:39:02 by maw              ###   ########.fr       */
+/*   Updated: 2024/12/15 13:39:29 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ void	child_process(t_pipex *child, char **av, char **envp, int *fd)
 	printf("%s\n", child->cmd_path);
 	print_tab(child->cmd_arg);
 	child->in_fd = open(av[1], O_RDONLY, 0777);
+	if (child->in_fd == -1)
+	{
+		printf("zsh: %s: %s\n", strerror(errno), av[1]);
+		return ;
+	}
 	dup2(child->in_fd, STDIN_FILENO);
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[0]);

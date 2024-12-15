@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:52:20 by maw               #+#    #+#             */
-/*   Updated: 2024/12/13 16:44:47 by maw              ###   ########.fr       */
+/*   Updated: 2024/12/15 12:12:54 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "LIBFT/libft.h"
 # include <fcntl.h>
 # include <sys/types.h>
+# include <errno.h>
 
 typedef struct s_pipex
 {
