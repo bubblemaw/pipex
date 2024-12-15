@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masase <masase@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:52:20 by maw               #+#    #+#             */
-/*   Updated: 2024/12/06 16:47:14 by masase           ###   ########.fr       */
+/*   Updated: 2024/12/13 16:44:47 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,22 @@
 # define PIPEX_H
 # include "LIBFT/libft.h"
 # include <fcntl.h>
+# include <sys/types.h>
 
 typedef struct s_pipex
 {
 	int		in_fd;
 	int		out_fd;
-	char	**cmd_path;
+	char	*cmd_path;
 	char	**cmd_arg;
 	int		cmd_count;
 }	t_pipex;
 
-#endif
+int		ft_parse(char *cmd, char **envp, t_pipex *child);
+char	*ft_cmd_path(char **envp, t_pipex *child);
+void	print_tab(char **array);
+void	free_tab(char **tab);
+void	child_process(t_pipex *child, char **av, char **envp, int *fd);
+void	parent_process(t_pipex *child, char **av, char **envp, int *fd);
 
+#endif

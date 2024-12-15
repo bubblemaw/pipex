@@ -31,3 +31,5 @@ main()
 		ft_exec()
 	ft_cleanup()
 }
+Il Faut sur surment utiliser la variable d'environnement PATH
+pour trouver n'importe quelle commande que je vais rentrer
