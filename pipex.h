@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:52:20 by maw               #+#    #+#             */
-/*   Updated: 2024/12/15 12:12:54 by maw              ###   ########.fr       */
+/*   Updated: 2024/12/16 00:02:20 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ void	print_tab(char **array);
 void	free_tab(char **tab);
 void	child_process(t_pipex *child, char **av, char **envp, int *fd);
 void	parent_process(t_pipex *child, char **av, char **envp, int *fd);
+void	free_child(t_pipex *child);
 
 #endif
