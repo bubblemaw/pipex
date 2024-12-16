@@ -6,7 +6,7 @@
 #    By: masase <masase@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/03 15:46:09 by maw               #+#    #+#              #
-#    Updated: 2024/12/16 14:14:07 by masase           ###   ########.fr        #
+#    Updated: 2024/12/16 18:59:45 by masase           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,6 @@ SRCS =  main.c \
 
 OBJS := $(SRCS:%.c=%.o)
 
-# LIBFT = LIBFT
 FT_PRINTF = FT_PRINTF
 
 FLAGS = -Wall -Werror -Wextra

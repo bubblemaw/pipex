@@ -6,7 +6,7 @@
 /*   By: masase <masase@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 10:08:43 by maw               #+#    #+#             */
-/*   Updated: 2024/12/16 13:53:50 by masase           ###   ########.fr       */
+/*   Updated: 2024/12/16 18:40:14 by masase           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,16 @@ void	child_process(t_pipex *child, char **av, char **envp, int *fd)
 	child->in_fd = open(av[1], O_RDONLY, 0777);
 	if (child->in_fd == -1)
 	{
+		free_data(child);
 		error(av[1]);
-		free_child(child);
-		return ;
 	}
 	dup2(child->in_fd, STDIN_FILENO);
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[0]);
 	close(fd[1]);
-	execve(child->cmd_path, child->cmd_arg, NULL);
+	print_tab(child->cmd_arg);
+	if (execve(child->cmd_path, child->cmd_arg, NULL) == -1)
+		error("");
 }
 
 void	parent_process(t_pipex *child, char **av, char **envp, int *fd)
@@ -36,15 +37,15 @@ void	parent_process(t_pipex *child, char **av, char **envp, int *fd)
 	child->out_fd = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (child->out_fd == -1)
 	{
+		free_data(child);
 		error(av[4]);
-		free_child(child);
-		return ;
 	}
 	dup2(fd[0], STDIN_FILENO);
 	dup2(child->out_fd, STDOUT_FILENO);
 	close(fd[0]);
 	close(fd[1]);
-	execve(child->cmd_path, child->cmd_arg, NULL);
+	if (execve(child->cmd_path, child->cmd_arg, NULL) == -1)
+		error("");
 }
 
 int	main(int ac, char **av, char **envp)
@@ -56,26 +57,28 @@ int	main(int ac, char **av, char **envp)
 	if (ac != 5)
 		return (0);
 	if (pipe(fd) == -1)
-		return (2);
+		exit(EXIT_FAILURE);
 	pid1 = fork();
 	if (pid1 == -1)
-		return (1);
+		exit(EXIT_FAILURE);
 	if (pid1 == 0)
 		child_process(&child, av, envp, fd);
 	else
 		parent_process(&child, av, envp, fd);
-	free_child(&child);
+	free_data(&child);
 	close(fd[0]);
 	close(fd[1]);
-
-	return (0);
+	exit(EXIT_SUCCESS);
 }
 
 
 int	ft_parse(char *cmd, char **envp, t_pipex *child)
 {
 	child->cmd_arg = ft_split(cmd, ' ');
+	if (child)
 	child->cmd_path = ft_cmd_path(envp, child);
+	if (child->cmd_path == NULL)
+		error("");
 	return (1);
 }
 
@@ -105,5 +108,6 @@ char	*ft_cmd_path(char **envp, t_pipex *child)
 		path = NULL;
 		i++;
 	}
+	error_cmd(child->cmd_arg[0]);
 	return (NULL);
 }
