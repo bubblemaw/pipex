@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 10:08:43 by maw               #+#    #+#             */
-/*   Updated: 2024/12/16 00:01:58 by maw              ###   ########.fr       */
+/*   Updated: 2024/12/16 01:11:14 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,11 @@ void	print_tab(char **array)
 void	child_process(t_pipex *child, char **av, char **envp, int *fd)
 {
 	ft_parse(av[2], envp, child);
-	printf("%s\n", child->cmd_path);
-	print_tab(child->cmd_arg);
 	child->in_fd = open(av[1], O_RDONLY, 0777);
 	if (child->in_fd == -1)
 	{
-		printf("zsh: %s: %s\n", strerror(errno), av[1]);
+		// printf("zsh: %s: %s\n", strerror(errno), av[1]);
+		error();
 		free_child(child);
 		return ;
 	}
@@ -62,12 +61,11 @@ void	child_process(t_pipex *child, char **av, char **envp, int *fd)
 void	parent_process(t_pipex *child, char **av, char **envp, int *fd)
 {
 	ft_parse(av[3], envp, child);
-	printf("%s\n", child->cmd_path);
-	print_tab(child->cmd_arg);
 	child->out_fd = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (child->out_fd == -1)
 	{
-		printf("zsh: %s: %s\n", strerror(errno), av[4]);
+		// printf("zsh: %s: %s\n", strerror(errno), av[4]);
+		error();
 		free_child(child);
 		return ;
 	}
@@ -106,6 +104,12 @@ void	free_child(t_pipex *child)
 	free(child->cmd_path);
 	child->cmd_path = NULL;
 	free_tab(child->cmd_arg);
+}
+
+void	error(void)
+{
+	perror("Error");
+	exit(EXIT_FAILURE);
 }
 
 int	ft_parse(char *cmd, char **envp, t_pipex *child)
