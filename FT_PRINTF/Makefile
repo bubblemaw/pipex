@@ -5,42 +5,40 @@
 #                                                     +:+ +:+         +:+      #
 #    By: masase <masase@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/12/03 15:46:09 by maw               #+#    #+#              #
-#    Updated: 2024/12/16 14:14:07 by masase           ###   ########.fr        #
+#    Created: 2024/09/24 17:01:35 by maw               #+#    #+#              #
+#    Updated: 2024/12/16 14:17:50 by masase           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+NAME =	libftprintf.a
 
-NAME =  pipex
-
-SRCS =  main.c \
-		utils.c \
-		
-
+SRCS =	printf_utils1.c \
+		printf_utils2.c \
+		printf.c
 
 OBJS := $(SRCS:%.c=%.o)
 
-# LIBFT = LIBFT
-FT_PRINTF = FT_PRINTF
+LIBFT = libft
 
 FLAGS = -Wall -Werror -Wextra
 
 RM = rm -f
 
 $(NAME): $(OBJS)
-		$(MAKE) -C $(FT_PRINTF)
-		gcc $(FLAGS) $(OBJS) $(FT_PRINTF)/libftprintf.a -o $(NAME)
+	$(MAKE) -C $(LIBFT)
+	cp $(LIBFT)/libft.a .
+	mv libft.a $(NAME)
+	gcc $(FLAGS) -c $(SRCS) -I ./
+	ar rc $(NAME) $(OBJS)
 
 all: $(NAME)
 
 clean :
-		$(RM) $(OBJS)
-		# $(MAKE) -C $(LIBFT) clean
-		$(MAKE) -C $(FT_PRINTF) clean
+	$(RM) $(OBJS)
+	$(MAKE) -C $(LIBFT) clean
 
 fclean: clean
-		$(RM) $(NAME)
-		# $(RM) $(LIBFT)/libft.a
-		$(RM) $(FT_PRINTF)/libftprintf.a
+	$(RM) $(NAME)
+	$(RM) $(LIBFT)/libft.a
 
 re: fclean all

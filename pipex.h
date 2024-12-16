@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: masase <masase@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:52:20 by maw               #+#    #+#             */
-/*   Updated: 2024/12/16 00:42:53 by maw              ###   ########.fr       */
+/*   Updated: 2024/12/16 14:44:42 by masase           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
-# include "LIBFT/libft.h"
+// # include "LIBFT/libft.h"
+# include "FT_PRINTF/ft_printf.h"
 # include <fcntl.h>
 # include <sys/types.h>
 # include <errno.h>
@@ -33,6 +34,6 @@ void	free_tab(char **tab);
 void	child_process(t_pipex *child, char **av, char **envp, int *fd);
 void	parent_process(t_pipex *child, char **av, char **envp, int *fd);
 void	free_child(t_pipex *child);
-void	error(void);
+void	error(const char *str);
 
 #endif

@@ -3,42 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: masase <masase@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 10:08:43 by maw               #+#    #+#             */
-/*   Updated: 2024/12/16 01:11:14 by maw              ###   ########.fr       */
+/*   Updated: 2024/12/16 13:53:50 by masase           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include <stdio.h>
-
-void	free_tab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		tab[i] = NULL;
-		i++;
-	}
-	free(tab);
-	tab = NULL;
-}
-
-void	print_tab(char **array)
-{
-    if (!array)
-        return;
-    int i = 0;
-    while (array[i])
-    {
-        printf("%s\n", array[i]);
-        i++;
-    }
-}
 
 void	child_process(t_pipex *child, char **av, char **envp, int *fd)
 {
@@ -46,8 +19,7 @@ void	child_process(t_pipex *child, char **av, char **envp, int *fd)
 	child->in_fd = open(av[1], O_RDONLY, 0777);
 	if (child->in_fd == -1)
 	{
-		// printf("zsh: %s: %s\n", strerror(errno), av[1]);
-		error();
+		error(av[1]);
 		free_child(child);
 		return ;
 	}
@@ -64,8 +36,7 @@ void	parent_process(t_pipex *child, char **av, char **envp, int *fd)
 	child->out_fd = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (child->out_fd == -1)
 	{
-		// printf("zsh: %s: %s\n", strerror(errno), av[4]);
-		error();
+		error(av[4]);
 		free_child(child);
 		return ;
 	}
@@ -99,18 +70,7 @@ int	main(int ac, char **av, char **envp)
 
 	return (0);
 }
-void	free_child(t_pipex *child)
-{
-	free(child->cmd_path);
-	child->cmd_path = NULL;
-	free_tab(child->cmd_arg);
-}
 
-void	error(void)
-{
-	perror("Error");
-	exit(EXIT_FAILURE);
-}
 
 int	ft_parse(char *cmd, char **envp, t_pipex *child)
 {
@@ -147,27 +107,3 @@ char	*ft_cmd_path(char **envp, t_pipex *child)
 	}
 	return (NULL);
 }
-// #include <sys/types.h>
-// #include <unistd.h>
-// #include <stdio.h>
-
-// int main() {
-//     pid_t pid;
-
-//     pid = fork(); // Fork creates a new process
-
-//     if (pid == -1) {
-//         perror("fork failed");
-//         return 1;
-//     }
-
-//     if (pid == 0) {
-//         // Child process
-//         printf("I am the child process. My PID is %d\n", getpid());
-//     } else {
-//         // Parent process
-//         printf("I am the parent process. My PID is %d, and my child's PID is %d\n", getpid(), pid);
-//     }
-
-//     return 0;
-// }
