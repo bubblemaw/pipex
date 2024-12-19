@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masase <masase@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 10:08:43 by maw               #+#    #+#             */
-/*   Updated: 2024/12/16 18:40:14 by masase           ###   ########.fr       */
+/*   Updated: 2024/12/19 13:16:07 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ void	child_process(t_pipex *child, char **av, char **envp, int *fd)
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[0]);
 	close(fd[1]);
-	print_tab(child->cmd_arg);
-	if (execve(child->cmd_path, child->cmd_arg, NULL) == -1)
+	close(child->in_fd);
+	// print_tab(child->cmd_arg);
+	if (execve(child->cmd_path, child->cmd_arg, envp) == -1)
 		error("");
 }
 
@@ -44,7 +45,9 @@ void	parent_process(t_pipex *child, char **av, char **envp, int *fd)
 	dup2(child->out_fd, STDOUT_FILENO);
 	close(fd[0]);
 	close(fd[1]);
-	if (execve(child->cmd_path, child->cmd_arg, NULL) == -1)
+	close(child->out_fd);
+	// print_tab(child->cmd_arg);
+	if (execve(child->cmd_path, child->cmd_arg, envp) == -1)
 		error("");
 }
 
@@ -108,6 +111,6 @@ char	*ft_cmd_path(char **envp, t_pipex *child)
 		path = NULL;
 		i++;
 	}
-	error_cmd(child->cmd_arg[0]);
+	// error_cmd(child->cmd_arg[0]);
 	return (NULL);
 }
