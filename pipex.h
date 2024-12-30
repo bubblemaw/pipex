@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:52:20 by maw               #+#    #+#             */
-/*   Updated: 2024/12/17 17:59:31 by maw              ###   ########.fr       */
+/*   Updated: 2024/12/25 14:11:11 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,14 @@ void	free_tab(char **tab);
 void	child_process(t_pipex *child, char **av, char **envp, int *fd);
 void	parent_process(t_pipex *child, char **av, char **envp, int *fd);
 void	free_data(t_pipex *child);
-void	error(const char *str);
+void	error(char *str);
 void	error_cmd(const char *str);
 char	**ft_split(const char *s, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strnstr(const char *big, const char *small, size_t len);
+char	**ft_split_charset(const char *s, char *charset);
+int	countwords_charset(const char *str, char *charset);
+char	**writesplit_charset(const char *s, char **split, char *charset, size_t num);
 
 
 #endif

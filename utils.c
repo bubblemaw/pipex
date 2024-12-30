@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:03:09 by masase            #+#    #+#             */
-/*   Updated: 2024/12/18 00:29:18 by maw              ###   ########.fr       */
+/*   Updated: 2024/12/25 15:40:36 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,23 @@ void	print_tab(char **array)
 
 void	free_data(t_pipex *child)
 {
-	free(child->cmd_path);
-	child->cmd_path = NULL;
-	free_tab(child->cmd_arg);
+	if (child->cmd_path)
+	{
+		free(child->cmd_path);
+		child->cmd_path = NULL;
+	}
+	if (child->cmd_arg)
+		free_tab(child->cmd_arg);
 }
 
-void	error(const char *str)
+void	error(char *str)
 {
-	ft_printf(2, "zsh: %s: %s\n", strerror(errno), str);
+	printf("zsh: %s: %s\n", strerror(errno), str);
 	exit(EXIT_FAILURE);
 }
 
 void	error_cmd(const char *str)
 {
-	ft_printf(2, "zsh: command not found: %s\n", str);
+	ft_printf(STDERR_FILENO, "zsh: command not found: %s\n", str);
 	exit(EXIT_FAILURE);
 }
