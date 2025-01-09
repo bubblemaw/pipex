@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:03:09 by masase            #+#    #+#             */
-/*   Updated: 2024/12/25 15:40:36 by maw              ###   ########.fr       */
+/*   Updated: 2024/12/31 13:17:40 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ void	free_data(t_pipex *child)
 
 void	error(char *str)
 {
-	printf("zsh: %s: %s\n", strerror(errno), str);
+	ft_printf(STDERR_FILENO, "zsh: %s: %s\n", strerror(errno), str);
 	exit(EXIT_FAILURE);
 }
 
 void	error_cmd(const char *str)
 {
 	ft_printf(STDERR_FILENO, "zsh: command not found: %s\n", str);
-	exit(EXIT_FAILURE);
+	exit(127);
 }

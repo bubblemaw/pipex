@@ -6,10 +6,9 @@
 #    By: maw <maw@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/03 15:46:09 by maw               #+#    #+#              #
-#    Updated: 2024/12/19 14:12:05 by maw              ###   ########.fr        #
+#    Updated: 2025/01/01 14:50:27 by maw              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 
 NAME =  pipex
 
@@ -29,7 +28,7 @@ RM = rm -f
 
 $(NAME): $(OBJS)
 		$(MAKE) -C $(FT_PRINTF)
-		gcc $(FLAGS) $(OBJS) $(FT_PRINTF)/libftprintf.a -o $(NAME)
+		gcc -fsanitize=address -g $(FLAGS) $(OBJS) $(FT_PRINTF)/libftprintf.a -o $(NAME)
 
 all: $(NAME)
 

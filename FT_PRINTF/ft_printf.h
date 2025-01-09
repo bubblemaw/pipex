@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masase <masase@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 13:45:26 by maw               #+#    #+#             */
-/*   Updated: 2024/12/16 14:47:52 by masase           ###   ########.fr       */
+/*   Updated: 2024/12/31 10:09:42 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		put0x(void *ptr, int output);
 int		ft_puthexa_pre(unsigned long int n, int fd);
 int		ft_putstr(char *s, int output);
 int		ft_printf(int output, const char *format, ...);
-int		checkflag(char c, va_list ap, int output);
+int		checkflag(char c, va_list *ap, int output);
 int		ft_putchar_spe(unsigned char c, int fd);
 
 #endif

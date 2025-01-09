@@ -6,33 +6,33 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:15:59 by maw               #+#    #+#             */
-/*   Updated: 2024/12/30 12:57:24 by maw              ###   ########.fr       */
+/*   Updated: 2024/12/31 10:10:14 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	checkflag(char c, va_list ap, int output)
+int	checkflag(char c, va_list *ap, int output)
 {
 	int	count;
 
 	count = 0;
 	if (c == 'c' || c == 'C')
-		count = ft_putchar_spe((char)va_arg(ap, int), output);
+		count = ft_putchar_spe((char)va_arg(*ap, int), output);
 	else if (c == 's' || c == 'S')
-		count = ft_putstr(va_arg(ap, char *), output);
+		count = ft_putstr(va_arg(*ap, char *), output);
 	else if (c == 'd' || c == 'i' || c == 'D' || c == 'I')
-		count = ft_putnbr_fi(va_arg(ap, int), output);
+		count = ft_putnbr_fi(va_arg(*ap, int), output);
 	else if (c == 'x')
-		count = ft_puthexa_fd(va_arg(ap, int), output);
+		count = ft_puthexa_fd(va_arg(*ap, int), output);
 	else if (c == 'X')
-		count = ft_puthexa_up_fd(va_arg(ap, int), output);
+		count = ft_puthexa_up_fd(va_arg(*ap, int), output);
 	else if (c == 'u' || c == 'U')
-		count = ft_putnbr_unsigned(va_arg(ap, unsigned int), output);
+		count = ft_putnbr_unsigned(va_arg(*ap, unsigned int), output);
 	else if (c == '%')
 		count = ft_putchar_spe('%', output);
 	else if (c == 'p')
-		count = put0x(va_arg(ap, void *), output);
+		count = put0x(va_arg(*ap, void *), output);
 	if (count == -1)
 		return (-1);
 	return (count);
@@ -53,7 +53,7 @@ int	ft_printf(int output, const char *format, ...)
 		if (format[i] == '%')
 		{
 			i++;
-			charcount += checkflag(format[i], ap, output);
+			charcount += checkflag(format[i], &ap, output);
 		}
 		else
 		{

@@ -6,16 +6,12 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 10:08:43 by maw               #+#    #+#             */
-/*   Updated: 2024/12/27 13:16:58 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/09 11:37:53 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include <stdio.h>
-void ex(void)
-{
-	ft_printf(1, "string1:%d et string2:%d", 8, 90);
-}
 
 void	child_process(t_pipex *child, char **av, char **envp, int *fd)
 {
@@ -43,7 +39,6 @@ void	parent_process(t_pipex *child, char **av, char **envp, int *fd)
 	child->out_fd = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (child->out_fd == -1)
 	{
-		ft_printf(STDERR_FILENO, "zsh: %s: %s\n", strerror(errno), "c'est pour ton pere");
 		free_data(child);
 		error(av[4]);
 	}
@@ -63,8 +58,11 @@ int	main(int ac, char **av, char **envp)
 	t_pipex	child;
 	pid_t	pid1;
 	pid_t	pid2;
+	int		status1;
+	int		status2;
 
-	ex();
+	status1 = 0;
+	status2 = 0;
 	if (ac != 5)
 		return (0);
 	if (pipe(fd) == -1)
@@ -81,12 +79,12 @@ int	main(int ac, char **av, char **envp)
 		parent_process(&child, av, envp, fd);
 	close(fd[0]);
 	close(fd[1]);
-	waitpid(pid1, NULL, 0);
-	waitpid(pid2, NULL, 0);
-
+	waitpid(pid1, &status1, 0);
+	waitpid(pid2, &status2, 0);
+	if (status1 != 0 || status2 != 0)
+		exit(EXIT_FAILURE);
 	free_data(&child);
-
-	exit(EXIT_SUCCESS);
+	return (0);
 }
 
 
