@@ -6,7 +6,7 @@
 #    By: maw <maw@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/24 17:01:35 by maw               #+#    #+#              #
-#    Updated: 2024/12/31 09:56:52 by maw              ###   ########.fr        #
+#    Updated: 2025/01/23 11:36:25 by maw              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRCS =	printf_utils1.c \
 
 OBJS := $(SRCS:%.c=%.o)
 
-LIBFT = libft
+LIBFT = LIBFT
 
 FLAGS = -Wall -Werror -Wextra
 

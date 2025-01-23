@@ -6,12 +6,11 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 10:08:43 by maw               #+#    #+#             */
-/*   Updated: 2025/01/09 11:37:53 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/23 11:42:37 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include <stdio.h>
 
 void	child_process(t_pipex *child, char **av, char **envp, int *fd)
 {

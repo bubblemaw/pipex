@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printf_utils1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masase <masase@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 10:06:02 by maw               #+#    #+#             */
-/*   Updated: 2024/12/16 14:32:53 by masase           ###   ########.fr       */
+/*   Updated: 2025/01/23 11:39:38 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,6 @@ int	ft_puthexa_pre(unsigned long int n, int fd)
 	int		count;
 
 	count = 0;
-	if (n < 0)
-	{
-		write(fd, "-", 1);
-		n *= -1;
-	}
 	if (n >= 16)
 	{
 		count += ft_puthexa_pre(n / 16, fd);
@@ -108,11 +103,6 @@ int	ft_puthexa_up_fd(unsigned int n, int fd)
 	int		count;
 
 	count = 0;
-	if (n < 0)
-	{
-		count += write(fd, "-", 1);
-		n *= -1;
-	}
 	if (n >= 16)
 	{
 		count += ft_puthexa_up_fd(n / 16, fd);

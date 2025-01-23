@@ -1,6 +1,1 @@
-64 bytes from 216.58.215.238: icmp_seq=0 ttl=58 time=8.085 ms
-64 bytes from 216.58.215.238: icmp_seq=1 ttl=58 time=6.852 ms
-64 bytes from 216.58.215.238: icmp_seq=2 ttl=58 time=9.137 ms
-64 bytes from 216.58.215.238: icmp_seq=3 ttl=58 time=6.457 ms
-64 bytes from 216.58.215.238: icmp_seq=4 ttl=58 time=11.975 ms
-round-trip min/avg/max/stddev = 6.457/8.501/11.975/1.977 ms
+     17      17     152

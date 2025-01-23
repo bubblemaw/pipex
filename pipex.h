@@ -6,17 +6,17 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:52:20 by maw               #+#    #+#             */
-/*   Updated: 2024/12/31 10:10:24 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/23 11:34:23 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
-// # include "LIBFT/libft.h"
 # include "FT_PRINTF/ft_printf.h"
 # include <fcntl.h>
 # include <sys/types.h>
 # include <errno.h>
+# include <sys/wait.h>
 
 typedef struct s_pipex
 {
@@ -40,7 +40,7 @@ char	**ft_split(const char *s, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strnstr(const char *big, const char *small, size_t len);
 char	**ft_split_charset(const char *s, char *charset);
-int	countwords_charset(const char *str, char *charset);
+int		countwords_charset(const char *str, char *charset);
 char	**writesplit_charset(const char *s, char **split, char *charset, size_t num);
 
 
