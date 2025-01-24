@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: masase <masase@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:52:20 by maw               #+#    #+#             */
-/*   Updated: 2025/01/23 16:43:10 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/24 16:10:07 by masase           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char	*ft_strnstr(const char *big, const char *small, size_t len);
 char	**ft_split_charset(const char *s, char *charset);
 int		countwords_charset(const char *str, char *charset);
 char	**writesplit_charset(const char *s, char **split, char *charset, size_t num);
+char	*join_path(char **tab_path, t_pipex *child);
 
 
 #endif

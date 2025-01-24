@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: masase <masase@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:03:09 by masase            #+#    #+#             */
-/*   Updated: 2025/01/24 10:34:47 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/24 16:24:45 by masase           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	free_data(t_pipex *child)
 void	error(char *str)
 {
 	ft_printf(STDERR_FILENO, "zsh: %s: %s\n", strerror(errno), str);
-	exit(EXIT_FAILURE);
+	exit(EXIT_SUCCESS);
 }
 
 void	error_cmd(char *str)

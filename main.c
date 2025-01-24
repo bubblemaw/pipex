@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: masase <masase@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 10:08:43 by maw               #+#    #+#             */
-/*   Updated: 2025/01/24 10:34:42 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/24 16:29:31 by masase           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,36 @@ int	main(int ac, char **av, char **envp)
 	return (0);
 }
 
+// int	pipe()
+// {
+// 	pid_t	pid1;
+// 	pid_t	pid2;
+// 	int		status1;
+// 	int		status2;
+
+// 	status1 = 0;
+// 	status2 = 0;
+// 	if (ac != 5)
+// 		return (0);
+// 	if (pipe(fd) == -1)
+// 		exit(EXIT_FAILURE);
+// 	pid1 = fork();
+// 	if (pid1 == -1)
+// 		exit(EXIT_FAILURE);
+// 	if (pid1 == 0)
+// 		child_process(&child, av, envp, fd);
+// 	pid2 = fork();
+// 	if (pid2 == -1)
+// 		exit(EXIT_FAILURE);
+// 	if (pid2 == 0)
+// 		parent_process(&child, av, envp, fd);
+// 	close(fd[0]);
+// 	close(fd[1]);
+// 	waitpid(pid1, &status1, 0);
+// 	waitpid(pid2, &status2, 0);
+// 	if (status1 != 0 || status2 != 0)
+// 		exit(EXIT_FAILURE);
+// }
 
 int	ft_parse(char *cmd, char **envp, t_pipex *child)
 {
@@ -92,7 +122,7 @@ int	ft_parse(char *cmd, char **envp, t_pipex *child)
 		error_cmd(child->cmd_arg[0]);
 		free_tab(child->cmd_arg);
 		child->cmd_arg = NULL;
-		exit(127);
+		exit(EXIT_SUCCESS);
 	}
 	return (1);
 }
@@ -100,7 +130,6 @@ int	ft_parse(char *cmd, char **envp, t_pipex *child)
 char	*ft_cmd_path(char **envp, t_pipex *child)
 {
 	char	**tab_path;
-	char	*tmp;
 	char	*path;
 	int		i;
 
@@ -110,6 +139,18 @@ char	*ft_cmd_path(char **envp, t_pipex *child)
 	tab_path = ft_split(envp[i] + 5, ':');
 	if (tab_path == NULL)
 		return (NULL);
+	path = join_path(tab_path, child);
+	if (path == NULL)
+		return (NULL);
+	return (path);
+}
+
+char	*join_path(char **tab_path, t_pipex *child)
+{
+	int		i;
+	char	*tmp;
+	char	*path;
+
 	i = 0;
 	while (tab_path[i])
 	{
