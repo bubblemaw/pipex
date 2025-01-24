@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:52:20 by maw               #+#    #+#             */
-/*   Updated: 2025/01/23 11:34:23 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/23 16:43:10 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	child_process(t_pipex *child, char **av, char **envp, int *fd);
 void	parent_process(t_pipex *child, char **av, char **envp, int *fd);
 void	free_data(t_pipex *child);
 void	error(char *str);
-void	error_cmd(const char *str);
+void	error_cmd(char *str);
 char	**ft_split(const char *s, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strnstr(const char *big, const char *small, size_t len);

@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 10:08:43 by maw               #+#    #+#             */
-/*   Updated: 2025/01/23 11:42:37 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/24 10:34:42 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,12 @@ void	child_process(t_pipex *child, char **av, char **envp, int *fd)
 	ft_parse(av[2], envp, child);
 	child->in_fd = open(av[1], O_RDONLY, 0777);
 	if (child->in_fd == -1)
-	{
-		free_data(child);
 		error(av[1]);
-		exit(EXIT_FAILURE);
-	}
 	dup2(child->in_fd, STDIN_FILENO);
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[0]);
 	close(fd[1]);
 	close(child->in_fd);
-	// print_tab(child->cmd_arg);
 	if (execve(child->cmd_path, child->cmd_arg, envp) == -1)
 		error("");
 }
@@ -37,16 +32,12 @@ void	parent_process(t_pipex *child, char **av, char **envp, int *fd)
 	ft_parse(av[3], envp, child);
 	child->out_fd = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (child->out_fd == -1)
-	{
-		free_data(child);
 		error(av[4]);
-	}
 	dup2(fd[0], STDIN_FILENO);
 	dup2(child->out_fd, STDOUT_FILENO);
 	close(fd[0]);
 	close(fd[1]);
 	close(child->out_fd);
-	// print_tab(child->cmd_arg);
 	if (execve(child->cmd_path, child->cmd_arg, envp) == -1)
 		error("");
 }
@@ -82,30 +73,34 @@ int	main(int ac, char **av, char **envp)
 	waitpid(pid2, &status2, 0);
 	if (status1 != 0 || status2 != 0)
 		exit(EXIT_FAILURE);
-	free_data(&child);
 	return (0);
 }
 
 
 int	ft_parse(char *cmd, char **envp, t_pipex *child)
 {
-	char	*charset;
+	char	c;
 
-	charset = " ";
+	c = ' ';
 	if (ft_strnstr(cmd, "bin", 4) != NULL)
-		child->cmd_arg = ft_split_charset(cmd + 5, charset);
+		child->cmd_arg = ft_split(cmd + 5, c);
 	else
-		child->cmd_arg = ft_split_charset(cmd, charset);
-	// print_tab(child->cmd_arg);
+		child->cmd_arg = ft_split(cmd, c);
 	child->cmd_path = ft_cmd_path(envp, child);
 	if (child->cmd_path == NULL)
-		error("");
+	{
+		error_cmd(child->cmd_arg[0]);
+		free_tab(child->cmd_arg);
+		child->cmd_arg = NULL;
+		exit(127);
+	}
 	return (1);
 }
 
 char	*ft_cmd_path(char **envp, t_pipex *child)
 {
 	char	**tab_path;
+	char	*tmp;
 	char	*path;
 	int		i;
 
@@ -114,12 +109,13 @@ char	*ft_cmd_path(char **envp, t_pipex *child)
 		i++;
 	tab_path = ft_split(envp[i] + 5, ':');
 	if (tab_path == NULL)
-		return (0);
+		return (NULL);
 	i = 0;
 	while (tab_path[i])
 	{
-		path = ft_strjoin(tab_path[i], "/");
-		path = ft_strjoin(path, child->cmd_arg[0]);
+		tmp = ft_strjoin(tab_path[i], "/");
+		path = ft_strjoin(tmp, child->cmd_arg[0]);
+		free(tmp);
 		if (access(path, F_OK) == 0)
 		{
 			free_tab(tab_path);
@@ -129,6 +125,6 @@ char	*ft_cmd_path(char **envp, t_pipex *child)
 		path = NULL;
 		i++;
 	}
-	error_cmd(child->cmd_arg[0]);
+	free_tab(tab_path);
 	return (NULL);
 }

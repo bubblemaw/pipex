@@ -6,7 +6,7 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:03:09 by masase            #+#    #+#             */
-/*   Updated: 2025/01/23 11:31:06 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/24 10:34:47 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,9 @@ void	error(char *str)
 	exit(EXIT_FAILURE);
 }
 
-void	error_cmd(const char *str)
+void	error_cmd(char *str)
 {
-	ft_printf(STDERR_FILENO, "zsh: command not found: %s\n", str);
-	exit(127);
+	ft_putstr_fd("zsh: command not found: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("\n", 2);
 }
