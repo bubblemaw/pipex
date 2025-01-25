@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: masase <masase@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 10:08:43 by maw               #+#    #+#             */
-/*   Updated: 2025/01/25 01:02:27 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/25 12:44:17 by masase           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	child_process(t_pipex *child, char **av, char **envp, int *fd)
 {
-	ft_parse(av[2], envp, child);
 	child->in_fd = open(av[1], O_RDONLY, 0777);
 	if (child->in_fd == -1)
 		error(av[1]);
+	ft_parse(av[2], envp, child);
 	dup2(child->in_fd, STDIN_FILENO);
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[0]);
@@ -29,10 +29,10 @@ void	child_process(t_pipex *child, char **av, char **envp, int *fd)
 
 void	parent_process(t_pipex *child, char **av, char **envp, int *fd)
 {
-	ft_parse(av[3], envp, child);
 	child->out_fd = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (child->out_fd == -1)
 		error(av[4]);
+	ft_parse(av[3], envp, child);
 	dup2(fd[0], STDIN_FILENO);
 	dup2(child->out_fd, STDOUT_FILENO);
 	close(fd[0]);
