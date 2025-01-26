@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: masase <masase@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 10:08:43 by maw               #+#    #+#             */
-/*   Updated: 2025/01/26 01:28:02 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/26 12:40:40 by masase           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	child_process(t_pipex *child, char **av, char **envp, int *fd)
 {
-	child->in_fd = open(av[1], O_RDONLY, 0777);
+	child->in_fd = open(av[1], O_RDONLY);
 	if (child->in_fd == -1)
 		error(av[1]);
 	ft_parse(av[2], envp, child);

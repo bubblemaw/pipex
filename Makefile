@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: maw <maw@student.42.fr>                    +#+  +:+       +#+         #
+#    By: masase <masase@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/03 15:46:09 by maw               #+#    #+#              #
-#    Updated: 2025/01/26 01:13:46 by maw              ###   ########.fr        #
+#    Updated: 2025/01/26 12:58:05 by masase           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,5 +39,6 @@ clean :
 fclean: clean
 		$(RM) $(NAME)
 		$(RM) $(FT_PRINTF)/libftprintf.a
+		$(RM) $(FT_PRINTF)/LIBFT/libft.a
 
 re: fclean all
