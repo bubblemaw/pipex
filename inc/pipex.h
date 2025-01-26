@@ -6,13 +6,13 @@
 /*   By: maw <maw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:52:20 by maw               #+#    #+#             */
-/*   Updated: 2025/01/25 01:02:24 by maw              ###   ########.fr       */
+/*   Updated: 2025/01/26 01:28:49 by maw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
-# include "FT_PRINTF/ft_printf.h"
+# include "../FT_PRINTF/ft_printf.h"
 # include <fcntl.h>
 # include <sys/types.h>
 # include <errno.h>

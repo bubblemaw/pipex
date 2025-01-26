@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: masase <masase@student.42.fr>              +#+  +:+       +#+         #
+#    By: maw <maw@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/03 15:46:09 by maw               #+#    #+#              #
-#    Updated: 2025/01/25 12:31:35 by masase           ###   ########.fr        #
+#    Updated: 2025/01/26 01:13:46 by maw              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME =  pipex
 
-SRCS =  main.c \
-		utils.c \
-		parse.c 
+SRCS =  src/main.c \
+		src/utils.c \
+		src/parse.c \
 		
 
 
